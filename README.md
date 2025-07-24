@@ -11,6 +11,8 @@
 - Results Pattern
 ---
 # Notes
+## Previous Notes
+<details><Summary>:scroll: Previous Notes</Summary>  
 
 ## Discriminated Unions
   - Used here to clearly indicate return type from MediatR handlers.
@@ -309,4 +311,6 @@ There is no single "correct" answer, as it's a strategic choice based on team pr
 
 **Implementation #2 (Separate Classes) is a perfectly valid and robust alternative.** It is a safer, more traditional choice if your team has a very strong preference for the "one class per file" rule or if you regularly build extremely complex features where a single file would become unwieldy.
 
-Ultimately, both approaches achieve the same excellent architectural outcome. The choice is about how you want to organize your code on disk to best suit your team's workflow.
+Ultimately, both approaches achieve the same excellent architectural outcome. The choice is about how you want to organize your code on disk to best suit your team's workflow.  
+
+</details>
