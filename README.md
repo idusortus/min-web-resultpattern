@@ -5,9 +5,10 @@
 - Scalar
 - Global Exception Handling
 - Serilog
-## New for this template :point_down:
-- MediatR 
+- - MediatR 
 - Discriminated Union (DU) Pattern
+## New for this template :point_down:
+- Results Pattern
 ---
 # Notes
 
