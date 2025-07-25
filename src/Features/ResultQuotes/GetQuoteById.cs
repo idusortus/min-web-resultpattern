@@ -1,6 +1,6 @@
 using Api.Application.Abstractions;
 using Api.Infrastructure.Persistence;
-using SharedKernel; // Your Result and Error classes
+using SharedKernel; 
 using MediatR;
 using Api.Extensions;
 
@@ -23,7 +23,7 @@ public static class GetQuoteById
         // 4. The Handle method signature is updated to return the standardized Result.
         public async Task<Result<QuoteResponse>> Handle(Query request, CancellationToken cancellationToken)
         {
-            var quote = await context.Quotes.FindAsync(new object[] { request.id }, cancellationToken);
+            var quote = await context.Quotes.FindAsync(request.id, cancellationToken);
 
             if (quote is null)
             {
@@ -51,11 +51,9 @@ public static class GetQuoteById
                 var query = new Query(id);
                 var result = await sender.Send(query);
 
-                // 5. The endpoint is now a simple "Adapter" that translates the
-                // business result into an HTTP result.
                 return result.IsSuccess
                     ? Results.Ok(result.Value) 
-                    : result.ToProblem(); // Use a helper to map the Error to a problem details response
+                    : result.ToProblem(); 
             })
             .WithTags("resultpattern")
             .WithName("GetQuoteByIdWithResult");
