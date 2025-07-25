@@ -11,6 +11,7 @@
 - ~~Discriminated Union (DU) Pattern~~
 - Results Pattern (Credit @ [Milan Jovanovic](https://github.com/m-jovanovic))
 - Composite Pattern
+- Fluent Validation
 ---
 # Notes  
 
@@ -118,6 +119,10 @@ public class UserRegistration
 *   If the email is invalid and the password is too weak, the method returns a single `ValidationError` object. That object's `Errors` property will contain *two* `Error` objects inside it: one for the email failure and one for the password failure.
 
 This pattern is incredibly powerful because the consuming code (e.g., your API endpoint) only has to handle one `Result` object, but it can still access all the detailed error information if it needs to.
+
+---
+### Fluent Validation
+
 
 ## Previous Notes
 <details><Summary>:scroll: Previous Notes</Summary>  

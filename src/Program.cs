@@ -1,6 +1,9 @@
 using System.Reflection;
+using Api.Application.Behaviors;
 using Api.Extensions;
 using Api.Infrastructure.Persistence;
+using FluentValidation;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using Serilog;
@@ -23,6 +26,12 @@ try
     builder.Services.AddProblemDetails();
     builder.Services.AddEndpoints(Assembly.GetExecutingAssembly());
     builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
+    // add mediatr validation pipeline behavior
+    builder.Services.AddScoped(
+        typeof(IPipelineBehavior<,>), 
+        typeof(ValidationBehavior<,>));
+    // register validators
+    builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
     var app = builder.Build();
 
