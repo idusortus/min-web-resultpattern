@@ -6,9 +6,10 @@
 - Global Exception Handling
 - Serilog
 - MediatR 
-- Discriminated Union (DU) Pattern
+
 ## New for this template :point_down:
-- Results Pattern
+- Results Pattern (Credit @ [Milan Jovanovic](https://github.com/m-jovanovic))
+- ~~Discriminated Union (DU) Pattern~~
 ---
 # Notes
 ## Previous Notes

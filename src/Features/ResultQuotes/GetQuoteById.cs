@@ -10,14 +10,12 @@ public static class GetQuoteById
 {
     // 1. Define a clear DTO for the successful response data.
     public record QuoteResponse(int Id, string Content, string Author);
-
     // 2. The Query now explicitly uses the generic Result<T> type.
     // It declares it will return a Result containing a QuoteResponse on success.
     public record Query(int id) : IRequest<Result<QuoteResponse>>;
     
     // 3. The old discriminated union (HandlerResult, HappyResult, FailResult) is GONE.
     // It is no longer needed because Result<T> replaces it.
-
     public class Handler(AppDbContext context) : IRequestHandler<Query, Result<QuoteResponse>>
     {
         // 4. The Handle method signature is updated to return the standardized Result.
@@ -34,8 +32,7 @@ public static class GetQuoteById
             }
             
             // On success, create the DTO and wrap it in a Success result.
-            var response = new QuoteResponse(quote.Id, quote.Content, quote.Author);
-            
+            var response = new QuoteResponse(quote.Id, quote.Content, quote.Author);            
             // The implicit operator makes this clean, but you could also write:
             // return Result.Success(response);
             return response;
@@ -51,9 +48,7 @@ public static class GetQuoteById
                 var query = new Query(id);
                 var result = await sender.Send(query);
 
-                return result.IsSuccess
-                    ? Results.Ok(result.Value) 
-                    : result.ToProblem(); 
+                return result.Match(Results.Ok, CustomResults.Problem);
             })
             .WithTags("resultpattern")
             .WithName("GetQuoteByIdWithResult");

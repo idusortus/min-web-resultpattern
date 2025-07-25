@@ -2,9 +2,9 @@
 
 namespace Api.Extensions;
 
-public static class CustomResultsExtension
+public static class CustomResults
 {
-    public static IResult ToProblem(this Result result)
+    public static IResult Problem(this Result result)
     {
         if (result.IsSuccess)
         {
