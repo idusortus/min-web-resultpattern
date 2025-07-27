@@ -10,13 +10,12 @@ namespace Api.Features.ResultQuotes;
 public static class GetQuoteById
 {
     // 1. Define a clear DTO for the successful response data.
-    public record QuoteResponse(int Id, string Content, string Author);
+    public sealed record QuoteResponse(int Id, string Content, string Author);
     // 2. The Query now explicitly uses the generic Result<T> type.
     // It declares it will return a Result containing a QuoteResponse on success.
-    public record Query(int id) : IRequest<Result<QuoteResponse>>;
-    
+    public sealed record GetQuoteQuery(int id) : IRequest<Result<QuoteResponse>>;
     // NEW: Add the validator class
-    public class Validator : AbstractValidator<Query>
+    public class Validator : AbstractValidator<GetQuoteQuery>
     {
         public Validator()
         {
@@ -25,12 +24,11 @@ public static class GetQuoteById
                 .WithMessage("The Quote ID must be a positive number.");
         }
     }
-    // 4. The old discriminated union (HandlerResult, HappyResult, FailResult) is GONE.
-    // It is no longer needed because Result<T> replaces it.
-    public class Handler(AppDbContext context) : IRequestHandler<Query, Result<QuoteResponse>>
+
+    public class Handler(AppDbContext context) : IRequestHandler<GetQuoteQuery, Result<QuoteResponse>>
     {
         // 5. The Handle method signature is updated to return the standardized Result.
-        public async Task<Result<QuoteResponse>> Handle(Query request, CancellationToken cancellationToken)
+        public async Task<Result<QuoteResponse>> Handle(GetQuoteQuery request, CancellationToken cancellationToken)
         {
             var quote = await context.Quotes.FindAsync(request.id, cancellationToken);
 
@@ -56,7 +54,7 @@ public static class GetQuoteById
         {
             app.MapGet("results/quotes/{id:int}", async (ISender sender, int id) =>
             {
-                var query = new Query(id);
+                var query = new GetQuoteQuery(id);
                 var result = await sender.Send(query);
 
                 return result.Match(Results.Ok, CustomResults.Problem);
