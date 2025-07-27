@@ -6,7 +6,7 @@ using FluentValidation;
 using MediatR;
 using SharedKernel;
 
-namespace Api.Features.ResultQuotes;
+namespace Api.Features.Quotes;
 
 public static class UpdateQuote
 {
@@ -46,13 +46,13 @@ public static class UpdateQuote
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapPut("results/quotes", async (ISender sender, UpdateQuoteCommand command, CancellationToken ct) =>
+            app.MapPut("quotes", async (ISender sender, UpdateQuoteCommand command, CancellationToken ct) =>
             {
                 var result = await sender.Send(command, ct);
 
                 return result.Match(Results.Ok, CustomResults.Problem);
             })
-            .WithTags("resultpattern");
+            .WithTags("Quotes");
         }
     }
 }

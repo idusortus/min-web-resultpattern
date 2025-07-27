@@ -6,7 +6,7 @@ using Api.Domain.Entities;
 using Api.Application.Abstractions;
 using Api.Extensions;
 
-namespace Api.Features.ResultQuotes;
+namespace Api.Features.Quotes;
 
 public static class CreateQuote
 {
@@ -43,7 +43,7 @@ public static class CreateQuote
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapPost("results/quotes", async (ISender sender, Command createQuoteCommand, CancellationToken ct) =>
+            app.MapPost("quotes", async (ISender sender, Command createQuoteCommand, CancellationToken ct) =>
             {
                 var result = await sender.Send(createQuoteCommand, ct);
 
@@ -53,7 +53,7 @@ public static class CreateQuote
                     CustomResults.Problem
                 );
             })
-            .WithTags("resultpattern");
+            .WithTags("Quotes");
         }
     }
 } 

@@ -7,7 +7,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel;
 
-namespace Api.Features.ResultQuotes;
+namespace Api.Features.Quotes;
 
 public static class GetQuotes
 {
@@ -46,7 +46,7 @@ public static class GetQuotes
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapGet("results/quotes", async (
+            app.MapGet("quotes", async (
                 ISender sender,
                 CancellationToken ct,
                 [FromQuery] int pNumber = 1,
@@ -58,7 +58,7 @@ public static class GetQuotes
                     CustomResults.Problem
                 );
             })
-            .WithTags("resultpattern"); 
+            .WithTags("Quotes"); 
         }
     }
 }

@@ -5,7 +5,7 @@ using MediatR;
 using Api.Extensions;
 using FluentValidation;
 
-namespace Api.Features.ResultQuotes;
+namespace Api.Features.Quotes;
 
 public static class GetQuoteById
 {
@@ -52,14 +52,14 @@ public static class GetQuoteById
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapGet("results/quotes/{id:int}", async (ISender sender, int id) =>
+            app.MapGet("quotes/{id:int}", async (ISender sender, int id) =>
             {
                 var query = new GetQuoteQuery(id);
                 var result = await sender.Send(query);
 
                 return result.Match(Results.Ok, CustomResults.Problem);
             })
-            .WithTags("resultpattern")
+            .WithTags("Quotes")
             .WithName("GetQuoteByIdWithResult");
         }
     }

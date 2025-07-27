@@ -5,7 +5,7 @@ using FluentValidation;
 using MediatR;
 using SharedKernel;
 
-namespace Api.Features.ResultQuotes;
+namespace Api.Features.Quotes;
 
 public static class DeleteQuote
 {
@@ -36,7 +36,7 @@ public static class DeleteQuote
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapDelete("results/quotes/{id:int}", async (ISender sender, int id, CancellationToken ct) =>
+            app.MapDelete("quotes/{id:int}", async (ISender sender, int id, CancellationToken ct) =>
             {
                 var result = await sender.Send(new DeleteQuoteCommand(id), ct);
                 return result.Match(
@@ -44,7 +44,7 @@ public static class DeleteQuote
                     CustomResults.Problem
                 );
             })
-            .WithTags("resultpattern");
+            .WithTags("Quotes");
         }
     }
 }
